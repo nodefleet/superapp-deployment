@@ -12,7 +12,7 @@ We added a [.env](./.env) which is the file we use to parametrice all configurat
 ### System Requirements
 
 
-#### Monitoring Stack
+#### Complete Monitoring Stack
 - **Minimum**: 12GB RAM | 12vCPU | 250GB storage
 - **Recommended**: 32GB RAM | 16vCPU | 500GB storage
 
@@ -23,6 +23,7 @@ We added a [.env](./.env) which is the file we use to parametrice all configurat
 - **Minimum**: 4GB RAM | 2vCPU | 100GB storage
 - **Recommended**: 8GB RAM | 4vCPU | 100GB storage
 
+#### Monitoring components
 
 - **Prometheus**: 1GB RAM | 1vCPU | 20GB storage (for metrics storage)
 - **Grafana**: 512MB RAM | 1vCPU | 5GB storage (for dashboards and UI)
@@ -66,6 +67,8 @@ In order to correctly receive the infrastructure and canopy alerts on this setup
 ## Running
 
 
+### Local
+
 ```bash
 
 sudo make up
@@ -80,13 +83,8 @@ sudo make start_with_snapshot
 
 ```
 
-### .env.template values
 
-
-#### DOMAIN=localhost
-
-
-This stack runs the following local and production services where localhost is replaced by $DOMAIN for production purposes:
+This stack runs the following local and production services:
 
 - http://wallet.node1.localhost/
 	user: canopy, pass:canopy (production usage)
@@ -101,10 +99,11 @@ This stack runs the following local and production services where localhost is r
 - http://adminrpc.node1.localhost/
 
 
-Additionally for the monitoring stack it runs:
+Grafana monitorign service 
 
 - http://monitoring.localhost/
 	user: admin, pass: canopy
+
 
 ### Clearing data
 
@@ -115,6 +114,100 @@ This command clears all canopy nodes data for a hard reset of the environment
 sudo make reset
 ```
 
+
+## Production
+
+
+This stack lets you run a semi-production deployment of the canopy stack by just changing a small number of settings shown below: 
+
+
+### Step 1: Define your "$DOMAIN" variable
+
+With a `DOMAIN` variable defined on [.env.template](/.env.template) traefik will expose and validate SSL on this endpoints externally using the prefix shown in the first running section  
+
+For more information check the Traefik section below
+
+
+### Step 2: Hostname canopy config 
+
+In order to properly expose canopy nodes explorer, rpc and wallet services through our loadbalancer for production purposes you need to configure the following config variables on [node1 config.json](../canopy_data/node1/config.json) and [node2 config.jso](../canopy_data/node2/config.json) respectively and replace it with your domain:
+
+
+Node1 config.json
+
+```
+  "rpcURL": "https://rpc.node1.<YOUR_DOMAIN>:50002",
+
+  "adminRPCUrl": "https://adminrpc.node1.<YOUR_DOMAIN>:50003",
+
+  "externalAddress": "tcp://node1.<YOUR_DOMAIN>",
+```
+
+Node2 config.json
+
+```
+  "rpcURL": "https://rpc.node2.<YOUR_DOMAIN>:40002",
+  
+  "adminRPCUrl": "https://admin.node2.<YOUR_DOMAIN>:40003",
+
+  "externalAddress": "tcp://node2.<YOUR_DOMAIN>",
+```
+
+### Step 3:  Configure your DNS
+
+
+Your domain should point to your production server under a wild card subdomain as shown:
+
+*.node1.<YOUR_DOMAIN> A record -> ||YOUR IP||
+
+*.node2.<YOUR_DOMAIN> A Record -> ||YOUR IP||
+
+
+Once it's done, make sure your DNS are properly configured so traefik can request the SSL certificates and expose your canopy and monitoring services under your domain
+
+
+#### Step 4: Define BASIC AUTH  
+
+By default wallet and explorer endpoints are sensitive endpoints accessed using basic AUTH with the following default password
+
+username: canopy
+
+passwd: canopy 
+
+
+It's mandatory to change this default passwords since wallet/explorer endpoints are SENSITIVES for securing your validator
+ 
+For customizing the loadbalancer basic auth access for production purposes on wallet production endpoints, create a custom password using the following command:
+
+``` bash
+htpasswd -nb  canopy canopy
+```
+
+Which will print a username and a hashed password that you need to replace it on [middleware.yaml](./loadbalancer/services/middleware.yaml)
+
+After you save this file, traefik will automatically reload and allow the new password to be used right away on your production environment
+
+```
+IMPORTANT: WE DO NOT RECOMMEND exposing wallet endpoint without making sure you are securing your validator 
+```
+
+### Step 5: Run
+
+
+```bash
+
+sudo make up
+
+```
+
+Traefik will take sometime for requesting the SSL Certificates and will expose the services accordingly with the prefix described in the # Running section of this document 
+
+We recommend to check the traefik section below on the Monitoring stack configuration for additonal modifications  
+
+```
+DISCLAIMER
+This semi-production monitoring setup guide which doesn't include security measures over your server security or canopy key management make sure you take your own measures to secure them 
+```
 
 ## Monitoring stack configuration
 
@@ -184,43 +277,25 @@ We use blackbox for testing and monitoring wallet/explorer endpoints. We'll be a
 [blackbox.yml](./monitoring/blackbox/blackbox.yml)
 
 
-#### Loadbalancer 
+#### Traefik 
 
-We use traefik as loadbalancer for exposing wallet/explorer/rpc/adminrpc respectively on two setups local and production with 2 nodes which can be accessed on the URLS described in the start of the document
+As mentioned, we use traefik as loadbalancer for exposing canopy and monitoring software on two setups local and production with 2 nodes which can be accessed on the URLS described in the start of the document
 
-Also, for changing the DOMAIN, just modify the DOMAIN variable on [.env](.env) and it will update the way it's being accessed, as default it's pointing to localhost
 
 Traefik will automatically create certs for all the URLS described on the # Runing section in this document  
 
-[traefik config](./loadbalancer/traefik.yml) 
-[production service](./loadbalancer/services/prod.yaml)
-[local service](./loadbalancer/services/local.yaml)
-[Middlewares](./loadbalancer/services/middleware.yaml)
+##### Traefik key settings
+
+[Traefik general config](./loadbalancer/traefik.yml) 
+
+[Production services](./loadbalancer/services/prod.yaml)
+
+[Local services](./loadbalancer/services/local.yaml)
+
+[Middlewares config](./loadbalancer/services/middleware.yaml)
 
 
-##### Loadbalancer configuration for canopy
-
-In order to properly expose canopy nodes through our loadbalancer for production purposes you need to configure the following config variables on [node1 config.json](../canopy_data/node1/config.json) and [node2 config.jso](../canopy_data/node2/config.json) respectively and replace it with the domain you'll use for production purposes:
-
-
-Node1 config.json
-
-```json
-  "rpcURL": "https://rpc.node1.<YOUR_DOMAIN>:50002",
-  "adminRPCUrl": "https://adminrpc.node1.<YOUR_DOMAIN>:50003",
-  "externalAddress": "tcp://node1.<YOUR_DOMAIN>",
-```
-
-Node2 config.json
-
-```json
-  "rpcURL": "https://rpc.node2.<YOUR_DOMAIN>:40002",
-  "adminRPCUrl": "https://admin.node2.<YOUR_DIMAIN>:40003",
-  "externalAddress": "tcp://node2.<YOUR_DIMAIN>",
-```
-
-
-#####  SSL resolver
+####  SSL resolver
 
 We use acme as SSL certificate resolver with httpChallenge by default which can be used for production, our documentation also contains `cloudflare` and `namecheap` integration for dnsChallenge recommended for production grade usage
 
@@ -242,11 +317,15 @@ Added for educational purposes
 For more information about https-resolvers please refer to [traefik https-resolvers](https://doc.traefik.io/traefik/reference/install-configuration/tls/certificate-resolvers/overview/)
 
 
-##### Basic AUTH
+#### Basic AUTH
 
-By default wallet endpoints are accessed using username: canopy, passwd: canopy
+By default wallet endpoints are accessed using:
+
+username: canopy
+passwd: canopy 
+
  
-But for customizing the loadbalancer basic auth access for production purposes on wallet production endpoints, create a custom password using the following command:
+For customizing the loadbalancer basic auth access for production purposes on wallet production endpoints, create a custom password using the following command:
 
 ``` bash
 htpasswd -nb  canopy canopy
