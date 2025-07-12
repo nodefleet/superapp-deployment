@@ -1,10 +1,10 @@
 # Canopy monitoring stack overview
 
 
-The following docker-compose.yaml contains the following software for monitoring purposes: 
-prometheus, grafana for monitoring and cadvisor and node-exporter for container and server metrics respectively and traefik for loadbalancing purposes
+This  docker-compose.yaml contains the following software stack for production grade and monitoring purposes; prometheus, grafana for monitoring and cadvisor and node-exporter for container and server metrics respectively and traefik for loadbalancing purposes
 
-We added a [.env](./.env) which is the file we use to parametrice all configurations in order to setup your personal canopy monitoring stack. It is intented to run by default for local testing but can be easily modified via .env variable to be configured for staging/production purposes
+We added a [.env](./.env) which is the file we use to parametrice all configurations in order to setup your personal canopy monitoring stack. It is intented to run by default for local testing but can be easily modified via .env variable to be configured for more robust staging/production purposes
+
 
 
 ## Setup
@@ -20,7 +20,7 @@ cp .env.template .env
 
 ```
 
-### grafana loki plugin
+### Grafana loki plugin
 
 Install the loki plugin so all of our logs can be ingested by loki 
 
@@ -58,8 +58,13 @@ sudo make start_with_snapshot
 
 ```
 
+### .env.template values
 
-This stack runs the following local and production services where localhost is replaed by $DOMAIN for production purposes:
+
+#### DOMAIN=localhost
+
+
+This stack runs the following local and production services where localhost is replaced by $DOMAIN for production purposes:
 
 - http://wallet.node1.localhost/
 	user: canopy, pass:canopy (production usage)
@@ -79,11 +84,10 @@ Additionally for the monitoring stack it runs:
 - http://monitoring.localhost/
 	user: admin, pass: canopy
 
-
 ### Clearing data
 
 
-This command clears all monitoring stack data grafana, loki, prometheus and also canopy nodes data for a hard reset of the environment
+This command clears all canopy nodes data for a hard reset of the environment
 
 ```bash
 sudo make reset
@@ -138,9 +142,10 @@ Dashboard with host container metrics
 
 #### Prometheus
 
-Configuration it's mainly described on the prometheus.yml described below and the docker-compose.yaml  
+Configuration it's mainly described on the prometheus.yml configuration file
 
 [prometheus.yml](./monitoring/prometheus/prometheus.yml)
+
 
 #### Cadvisor
 
@@ -171,9 +176,31 @@ Traefik will automatically create certs for all the URLS described on the # Runi
 [Middlewares](./loadbalancer/services/middleware.yaml)
 
 
+##### Loadbalancer configuration for canopy
+
+In order to properly expose canopy nodes through our loadbalancer for production purposes you need to configure the following config variables on [node1 config.json](../canopy_data/node1/config.json) and [node2 config.jso](../canopy_data/node2/config.json) respectively and replace it with the domain you'll use for production purposes:
+
+
+Node1 config.json
+
+```json
+  "rpcURL": "https://rpc.node1.<YOUR_DOMAIN>:50002",
+  "adminRPCUrl": "https://adminrpc.node1.<YOUR_DOMAIN>:50003",
+  "externalAddress": "tcp://node1.<YOUR_DOMAIN>",
+```
+
+Node2 config.json
+
+```json
+  "rpcURL": "https://rpc.node2.<YOUR_DOMAIN>:40002",
+  "adminRPCUrl": "https://admin.node2.<YOUR_DIMAIN>:40003",
+  "externalAddress": "tcp://node2.<YOUR_DIMAIN>",
+```
+
+
 #####  SSL resolver
 
-We use acme as SSL certificate resolver with httpChallenge by default, our documentation contains `cloudflare` and `namecheap` integration for dnsChallenge recommended for production grade usage
+We use acme as SSL certificate resolver with httpChallenge by default which can be used for production, our documentation also contains `cloudflare` and `namecheap` integration for dnsChallenge recommended for production grade usage
 
 For more information please check  [traefik config](./loadbalancer/traefik.yml) on the section https-resolver, below you'll find details about the https-resolvers described in this file: 
 
