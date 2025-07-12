@@ -9,6 +9,28 @@ We added a [.env](./.env) which is the file we use to parametrice all configurat
 
 ## Setup
 
+### System Requirements
+
+
+#### Monitoring Stack
+- **Minimum**: 12GB RAM | 12vCPU | 250GB storage
+- **Recommended**: 32GB RAM | 16vCPU | 500GB storage
+
+**Component-specific requirements:**
+
+
+#### Canopy Nodes
+- **Minimum**: 4GB RAM | 2vCPU | 100GB storage
+- **Recommended**: 8GB RAM | 4vCPU | 100GB storage
+
+
+- **Prometheus**: 1GB RAM | 1vCPU | 20GB storage (for metrics storage)
+- **Grafana**: 512MB RAM | 1vCPU | 5GB storage (for dashboards and UI)
+- **Loki**: 1GB RAM | 1vCPU | 20GB storage (for log storage)
+- **Cadvisor**: 256MB RAM | 1vCPU | 2GB storage (for container metrics)
+- **Traefik**: 256MB RAM | 1vCPU | 1GB storage (for load balancing)
+- **Node Exporter**: 128MB RAM | 1vCPU | 1GB storage (for host metrics)
+- **Blackbox Exporter**: 128MB RAM | 1vCPU | 1GB storage (for endpoint monitoring)
 
 ### .env 
 
