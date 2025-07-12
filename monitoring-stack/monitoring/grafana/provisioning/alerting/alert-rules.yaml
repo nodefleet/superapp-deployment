@@ -1,0 +1,3100 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: canopy
+      folder: canopy
+      interval: 1m
+      rules:
+        - uid: fekod6n2intoge
+          title: DBPartitionSize low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_partition_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1e+07
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 43
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "43"
+            description: DBPartitionSize over 10MB
+            summary: DBPartitionSize over low limit
+          labels:
+            canopy: DBPartitionSize
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: cekodbycmqtxcb
+          title: DBPartitionSize soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_partition_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 7.5e+07
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 43
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "43"
+            description: DBPartitionSize over 75MB
+            summary: DBPartitionSize over soft limit
+          labels:
+            canopy: DBPartitionSize
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: aekodgr5gderka
+          title: DBCommitSize low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_commit_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1e+06
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 41
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "41"
+            description: DBCommitSize over 1MB
+            summary: DBCommitSize over low limit
+          labels:
+            canopy: DBCommitSize
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: dekodm8fi6f40c
+          title: DBCommitSize soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_commit_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1e+07
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 41
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "41"
+            description: DBCommitSize over 10MB
+            summary: DBCommitSize over soft limit
+          labels:
+            canopy: DBCommitSize
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: eekodrgk7de68f
+          title: DBCommitEntries low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_commit_entries{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1e+06
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 38
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "38"
+            description: DBCommitEntries over 1,000,000
+            summary: DBCommitEntries over low limit
+          labels:
+            canopy: DBCommitEntries
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: bekodujwvf6yod
+          title: DBCommitEntries soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_commit_entries{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5e+06
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 38
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "38"
+            description: DBCommitEntries over 1,500,000
+            summary: DBCommitEntries over soft limit
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: eekodyinq13wga
+          title: DBPartitionEntries low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_partition_entries{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1e+06
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 34
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "34"
+            description: DBPartitionEntries over 1,000,000
+            summary: DBPartitionEntries over low limit
+          labels:
+            canopy: DBPartitionEntries
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: cekoe2omk2kg0a
+          title: DBPartitionEntries soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_partition_entries{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5e+06
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 34
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "34"
+            description: DBPartitionEntries over 1,500,000
+            summary: DBPartitionEntries over soft limit
+          labels:
+            canopy: DBPartitionEntries
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: fekoe8ugbycqod
+          title: DBPartitionTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_partition_time_sum{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 120
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 36
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "36"
+            description: DBPartitionTime over 2min
+            summary: DBPartitionTime over low limit
+          labels:
+            canopy: DBPartitionTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: fekoec5au1a80d
+          title: DBPartitionTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_store_partition_time_sum{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 300
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 36
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "36"
+            description: DBPartitionTime over 5min
+            summary: DBPartitionTime over soft limit
+          labels:
+            canopy: DBPartitionTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: cekoej48ntddsf
+          title: MempoolSize low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_mempool_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 500000
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 29
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "29"
+            description: MempoolSize over 500KB
+            summary: MempoolSize over low limit
+          labels:
+            canopy: MempoolSize
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: dekoemo9ez0n4c
+          title: MempoolSize soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_mempool_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2e+06
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 29
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "29"
+            description: MempoolSize over 2MB
+            summary: MempoolSize over soft limit
+          labels:
+            canopy: MempoolSize
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: eekoes47j864gb
+          title: MempoolCount low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_mempool_tx_count{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1000
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 27
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "27"
+            description: MempoolCount over 1,000
+            summary: MempoolCount over low limit
+          labels:
+            canopy: MempoolCount
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: dekoewbaqmjuof
+          title: MempoolCount soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_mempool_tx_count{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 3500
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 27
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "27"
+            description: MempoolCount over 3,500
+            summary: MempoolCount over soft limit
+          labels:
+            canopy: MempoolCount
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: fekofbtklnri8e
+          title: NonSignerPercent low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_block_non_signer_percentage{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 66
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "66"
+            description: NonSignerPercent over 5%
+            summary: NonSignerPercent over low limit
+          labels:
+            canopy: NonSignerPercent
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: aekoffotyvb40f
+          title: NonSignerPercent soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_block_non_signer_percentage{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 10
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 66
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "66"
+            description: NonSignerPrecent over 10%
+            summary: NonSignerPrecent over soft limit
+          labels:
+            canopy: NonSignerPercent
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: cekofmpz0fh1ca
+          title: BFTRounds low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_bft_round{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 70
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "70"
+            description: BFTRound over 1 Round
+            summary: BFTRound over low limit
+          labels:
+            canopy: BFTRound
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: fekofptvl651ce
+          title: BFTRounds soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_bft_round{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 3
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 70
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "70"
+            description: BFTRound over 3 Rounds
+            summary: BFTRound over soft limit
+          labels:
+            canopy: BFTRound
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: bekofx4zvml8gc
+          title: BlockSize low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_block_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 500000
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 26
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "26"
+            description: BlockSize over 500KB
+            summary: BlockSize over low limit
+          labels:
+            canopy: BlockSize
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: bekog0mkjd5hcd
+          title: BlockSize soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_block_size{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 750000
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 26
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "26"
+            description: BlockSize over 750KB
+            summary: BlockSize over soft limit
+          labels:
+            canopy: BlockSize
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: cekogatxo9rlsf
+          title: BlockVDFIterations low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_block_vdf_iterations{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 60
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "60"
+            description: BlockVDFIterations below 1
+            summary: BlockVDFIterations over low limit
+          labels:
+            canopy: BlockVDFIIterations
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: cekogl13vgj5sc
+          title: LargestTXSize low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_block_largest_txn{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2000
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 71
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "71"
+            description: LargestTxSize over 2KB
+            summary: LargestTxSize over low limit
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: dekogoave4idcb
+          title: LargestTXSize soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_block_largest_txn{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 3000
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 71
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "71"
+            description: LargestTxSize over 3KB
+            summary: LargestTxSize over soft limit
+          labels:
+            canopy: LargestTxSize
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: aekogvosqz280a
+          title: TotalPeers low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_peer_total{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 3
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 14
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "14"
+            description: TotalPeers below 3 peers
+            summary: TotalPeers low limit
+          labels:
+            canopy: TotalPeers
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: bekoh0yxiqkg0a
+          title: TotalPeers soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_peer_total{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 14
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "14"
+            description: Only one peer is connected
+            summary: TotalPeers soft limit
+          labels:
+            canopy: TotalPeers
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: aekq8jk4ttc74a
+          title: DBCommitTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_store_commit_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 32
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "32"
+            description: DBCommitTime is over 1.5 secs
+            summary: DBCommitTime is over low limit
+          labels:
+            canopy: DBCommitTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: cekqbsdmz2hhca
+          title: DBCommitTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_store_commit_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 32
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "32"
+            description: DBCommitTime is over 2 seconds
+            summary: DBCommitTime is over soft limit
+          labels:
+            canopy: DBCommitTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: aekqcjqnf4f0gd
+          title: BlockProcessingTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_block_processing_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 57
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "57"
+            description: BlockProcessing time over 2 secs
+            summary: BlockProcessingTime over low limit
+          labels:
+            canopy: BlockProcessingTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: bekqcokg1am80d
+          title: BlockProcessingTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_block_processing_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 3
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 57
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "57"
+            description: BlockProcessingTime over 3 secs
+            summary: BlockProcessingTime over soft limit
+          labels:
+            canopy: BlockProcessingTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: fekqcvptyn20wc
+          title: BFTCommitTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_commit_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 55
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "55"
+            description: BFTCommitTime over 1 sec
+            summary: BFTCommitTime over low limit
+          labels:
+            canopy: BFTCommitTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: eekqd0it8i70gd
+          title: BFTCommitTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_commit_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 55
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "55"
+            description: BFTCommitTime over 1.5 secs
+            summary: BFTCommitTime over soft limit
+          labels:
+            canopy: BFTCommitTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: bekqdhmk7xhxcf
+          title: BFTProposeVoteTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_propose_vote_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 51
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "51"
+            description: BFTProposeVoteTime over 2 secs
+            summary: BFTProposeVoteTime over low limit
+          labels:
+            canopy: BFTProposeVoteTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: dekqdm73o58u8b
+          title: BFTProposeVoteTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_propose_vote_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 3
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 51
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "51"
+            description: BFTProposeVoteTime over 3 secs
+            summary: BFTProposeVoteTime over soft limit
+          labels:
+            canopy: BFTProposeVoteTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: cekqdvmoh7pxcd
+          title: RootChainInfoTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_root_chain_info_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0.7
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 63
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "63"
+            description: RootChainInfoTime over 1 sec
+            summary: RootChainInfoTime over low limit
+          labels:
+            canopy: RootChainInfoTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: eekqdyygtx43ke
+          title: 'RootChainInfoTime soft limit '
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_root_chain_info_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 63
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "63"
+            description: RootChainInfoTime over 1 sec
+            summary: RootChainInfoTime over soft limit
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: cekqehgfucl4wf
+          title: BFTElectionTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_election_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 45
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "45"
+            description: BFTElectionTime over 1 sec
+            summary: BFTElectionTime over low limit
+          labels:
+            canopy: BFTElectionTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: bekqeq0aqu3nke
+          title: BFTElectionTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_election_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 45
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "45"
+            description: BFTElectionTime over 1.5 sec
+            summary: BFTElectionTime over soft limit
+          labels:
+            canopy: BFTElectionTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: fekqf312eultsa
+          title: BFTPrecommitVoteTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_precommit_vote_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 53
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "53"
+            description: BFTPrecommitVoteTime over 1 sec
+            summary: BFTPrecommitVoteTime over low limit
+          labels:
+            canopy: BFTPrecommitVoteTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: cekqf8znnbnr4c
+          title: BFTPrecommitVoteTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_precommit_vote_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 53
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "53"
+            description: BFTPrecommitVoteTime over  1.5 secs
+            summary: BFTPrecommitVoteTime soft limit
+          labels:
+            canopy: BFTPrecommitVoteTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: aekqggwjcw9hca
+          title: BFTElectionVoteTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_election_vote_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 47
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "47"
+            description: BFTElectionVoteTime over 1 sec
+            summary: BFTElectionVoteTime over low limit
+          labels:
+            canopy: BFTElectionVoteTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: aekqgkm9d7jlsd
+          title: BFTElectionVoteTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_election_vote_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1.5
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 47
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "47"
+            description: BFTElectionVoteTime over low limit
+            summary: BFTElectionVoteTime low limit
+          labels:
+            canopy: BFTElectionVoteTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: fekqgqcu6eo74d
+          title: BFTProposeTime low limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_propose_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 49
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "49"
+            description: BFTProposeTime over 2 secs
+            summary: BFTProposeTime low limit
+          labels:
+            canopy: BFTProposeTime
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: fekqgv0fn5fcwb
+          title: BFTProposeTime soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 900
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: rate(canopy_bft_propose_time_sum{job="canopy"}[$__rate_interval])
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 3
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 49
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "49"
+            description: BFTProposeTime over 3 secs
+            summary: BFTProposeTime soft limit
+          labels:
+            canopy: BFTProposeTime
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+    - orgId: 1
+      name: Infrastructure alerts
+      folder: infrastructure
+      interval: 1m
+      rules:
+        - uid: aejwqtshcu41sa
+          title: Disk space instance usage over 90%
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 86400
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                editorMode: code
+                expr: 100 - ((node_filesystem_avail_bytes{job="node-exporter",device!~'rootfs', mountpoint="/etc/hostname"} * 100) / node_filesystem_size_bytes{job="node-exporter",device!~'rootfs'})
+                format: time_series
+                instant: true
+                interval: ""
+                intervalFactor: 1
+                intervalMs: 15000
+                legendFormat: '{{instance}} - {{mountpoint}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                step: 240
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 80
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: KljDeaZ4z
+          panelId: 152
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: KljDeaZ4z
+            __panelId__: "152"
+            description: Disk space usage over 90% please check the instance space usage or consider extending/migrating
+            summary: Disk spage usage over 90%
+          isPaused: false
+          notification_settings:
+            receiver: grafana-default-email
+        - uid: aejwrno8j3kzke
+          title: CPU instance usage over 80%
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 86400
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                editorMode: code
+                expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{job="node-exporter",mode="idle"}[5m])) * 100)
+                format: time_series
+                instant: true
+                interval: ""
+                intervalFactor: 1
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                step: 240
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 80
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: KljDeaZ4z
+          panelId: 77
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: KljDeaZ4z
+            __panelId__: "77"
+            description: CPU usage peaked over 80% consider checking node activity or instance load
+            summary: CPU usage over 80%
+          isPaused: false
+          notification_settings:
+            receiver: grafana-default-email
+        - uid: eejwtxdcmmvpcc
+          title: Memory instance usage over 85%
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 86400
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                editorMode: code
+                expr: 100 - ((node_memory_Active_bytes{job='node-exporter'} * 100) / node_memory_MemTotal_bytes{job="node-exporter"})
+                format: time_series
+                instant: true
+                interval: ""
+                intervalFactor: 1
+                intervalMs: 15000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                step: 240
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 85
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: KljDeaZ4z
+          panelId: 78
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: KljDeaZ4z
+            __panelId__: "78"
+            description: Instance memory usage over 85% please consider checking the instance to avoid service interruptions
+            summary: Instance memory usage over 85%
+          isPaused: false
+          notification_settings:
+            receiver: grafana-default-email
+        - uid: dejwub4acusjka
+          title: I/O Utilization on instance over 85%
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 86400
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                editorMode: code
+                expr: avg by (instance) (rate(node_disk_io_time_seconds_total{job="node-exporter", device=~"nvme.*"} [$__rate_interval]))
+                format: time_series
+                instant: true
+                interval: ""
+                intervalFactor: 1
+                intervalMs: 15000
+                legendFormat: '{{instance}} - {{device}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                step: 240
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 85
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: KljDeaZ4z
+          panelId: 127
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: KljDeaZ4z
+            __panelId__: "127"
+            description: I/O Utilization on instance over 85%, please consider checking the disk usage to avoid service degradation
+            summary: I/O Utilization on instance over 85%
+          isPaused: false
+          notification_settings:
+            receiver: grafana-default-email

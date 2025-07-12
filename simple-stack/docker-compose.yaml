@@ -1,0 +1,51 @@
+
+services:
+  node1:
+    container_name: node1
+    image: nodefleet/canopy
+    build:
+      context: ../docker_image
+      dockerfile: ./Dockerfile
+      network: host
+      args:
+        EXPLORER_BASE_PATH: '/'
+        WALLET_BASE_PATH: '/'
+        BUILD_PATH: cmd/cli
+        BIN_PATH: $BIN_PATH
+        BRANCH: issue-#162 
+    env_file:
+      - .env
+    ports:
+      - 50000:50000 # Wallet
+      - 50001:50001 # Explorer
+      - 50002:50002 # RPC
+      - 50003:50003 # Admin RPC
+      - 9001:9001 # TCP P2P
+    command: [ "start" ]
+    volumes:
+      - ../canopy_data/node1:/root/.canopy
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"
+
+  node2:
+    container_name: node2
+    image: nodefleet/canopy
+    env_file:
+      - .env
+    ports:
+      - 40000:40000 # Wallet
+      - 40001:40001 # Explorer
+      - 40002:40002 # RPC
+      - 40003:40003 # Admin RPC
+      - 9002:9002 # TCP P2P
+    command: [ "start" ]
+    volumes:
+      - ../canopy_data/node2:/root/.canopy
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: "2.0"

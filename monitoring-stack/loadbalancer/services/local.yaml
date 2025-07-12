@@ -1,0 +1,102 @@
+http:
+  routers:
+    canopy-wallet-local:
+      rule: Host(`wallet.node1.localhost`) 
+      service: canopy-wallet-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-explorer-local:
+      rule: Host(`explorer.node1.localhost`)
+      service: canopy-explorer-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-rpc-local:
+      rule: Host(`rpc.node1.localhost`)
+      service: canopy-rpc-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-admin-rpc-local:
+      rule: Host(`adminrpc.node1.localhost`)
+      service: canopy-admin-rpc-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-wallet2-local:
+      rule: Host(`wallet.node2.localhost`) 
+      service: canopy-wallet2-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-explorer2-local:
+      rule: Host(`explorer.node2.localhost`)
+      service: canopy-explorer2-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-rpc2-local:
+      rule: Host(`rpc.node2.localhost`)
+      service: canopy-rpc2-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-admin-rpc2-local:
+      rule: Host(`adminrpc.node2.localhost`)
+      service: canopy-admin-rpc2-local
+      priority: 1
+      entryPoints:
+      - web
+    canopy-monitoring-local:
+      rule: Host(`monitoring.localhost`)
+      service: canopy-monitoring 
+      priority: 1
+      entryPoints:
+      - web
+  services:
+    canopy-wallet-local:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node1:50000
+    canopy-explorer-local:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node1:50001
+    canopy-rpc-local:
+      loadBalancer:
+        passHostHeader: false 
+        servers:
+          - url: http://node1:50002
+    canopy-admin-rpc-local:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node1:50003
+    canopy-wallet2-local:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node2:40000
+    canopy-explorer2-local:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node2:40001
+    canopy-rpc2-local:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node2:40002
+    canopy-admin-rpc2-local:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node2:40003
+    canopy-monitoring-local:
+      loadBalancer:
+        passHostHeader:  true
+        servers:
+          - url: http://grafana:3000

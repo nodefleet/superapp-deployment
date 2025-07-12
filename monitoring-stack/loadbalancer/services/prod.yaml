@@ -1,0 +1,141 @@
+http:
+  routers:
+    canopy-monitoring:
+      rule: Host(`monitoring.{{ env "DOMAIN" }}`) 
+      service: canopy-monitoring 
+      priority: 1
+      entryPoints:
+      - web
+      - websecure 
+      middlewares:
+      - https-redirect
+      tls:
+        certResolver: https-resolver
+    canopy-wallet:
+      rule:   Host(`wallet.node1.{{ env "DOMAIN" }}`)
+      service: canopy-wallet
+      priority: 1
+      entryPoints:
+      - web
+      - websecure 
+      middlewares:
+      - https-redirect
+      - basic-auth
+      tls:
+        certResolver: https-resolver
+    canopy-explorer:
+      rule:   Host(`explorer.node1.{{ env "DOMAIN" }}`) 
+      service: canopy-explorer
+      priority: 1
+      entryPoints:
+      - web
+      - websecure
+      tls:
+        certResolver: https-resolver
+    canopy-rpc:
+      rule:   Host(`rpc.node1.{{ env "DOMAIN" }}`) 
+      service: canopy-rpc
+      priority: 1
+      entryPoints:
+      - web
+      - websecure
+      tls:
+        certResolver: https-resolver
+    canopy-admin-rpc:
+      rule: Host(`adminrpc.node1.{{ env "DOMAIN" }}`)
+      service: canopy-admin-rpc
+      priority: 1
+      entryPoints:
+      - web
+      - websecure
+      middlewares:
+      - https-redirect
+      tls:
+        certResolver: https-resolver
+    canopy-wallet2:
+      rule: Host(`wallet.node2.{{ env "DOMAIN" }}`) 
+      service: canopy-wallet2
+      priority: 1
+      entryPoints:
+      - web
+      - websecure
+      middlewares:
+      - https-redirect
+      - basic-auth
+      tls:
+        certResolver: https-resolver
+    canopy-explorer2:
+      rule: Host(`explorer.node2.{{ env "DOMAIN" }}`)
+      service: canopy-explorer2
+      priority: 1
+      entryPoints:
+      - web
+      - websecure
+      tls:
+        certResolver: https-resolver
+    canopy-rpc2:
+      rule: Host(`rpc.node2.{{ env "DOMAIN" }}`)
+      service: canopy-rpc2
+      priority: 1
+      entryPoints:
+      - web
+      - websecure
+      tls:
+        certResolver: https-resolver
+    canopy-admin-rpc2:
+      rule: Host(`adminrpc.node2.{{ env "DOMAIN" }}`)
+      service: canopy-admin-rpc2
+      priority: 1
+      entryPoints:
+      - web
+      - websecure
+      middlewares:
+      - https-redirect
+      tls:
+        certResolver: https-resolver
+  services:
+    canopy-wallet:
+      loadBalancer:
+        passHostHeader: false 
+        servers:
+          - url: http://node1:50000
+    canopy-explorer:
+      loadBalancer:
+        passHostHeader: false 
+        servers:
+          - url: http://node1:50001
+    canopy-rpc:
+      loadBalancer:
+        passHostHeader: true 
+        servers:
+          - url: http://node1:50002/
+    canopy-admin-rpc:
+      loadBalancer:
+        passHostHeader: true 
+        servers:
+          - url: http://node1:50003/
+    canopy-wallet2:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node2:40000
+    canopy-explorer2:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: http://node2:40001
+    canopy-rpc2:
+      loadBalancer:
+        passHostHeader: true 
+        servers:
+          - url: http://node2:40002/
+    canopy-admin-rpc2:
+      loadBalancer:
+        passHostHeader: true 
+        servers:
+          - url: http://node2:40003/
+    canopy-monitoring:
+      loadBalancer:
+        passHostHeader: true 
+        servers:
+          - url: http://grafana:3000/
