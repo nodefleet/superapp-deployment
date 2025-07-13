@@ -6,10 +6,6 @@
     {
       "chainId": 1,
       "url": "http://node1:50002/"
-    },
-    {
-      "chainId": 2,
-      "url": "http://node2:40002/"
     }
   ],
   "runVDF": true,
@@ -35,22 +31,22 @@
   "dialPeers": [
     "8ad02e9b05e418f198e89179685a48b227f1c2bc266d4db002f24f8155c5119cbb9387146319b5dc4a260184f20d5d4f@tcp://cnpy.xyz"
   ],
-  "bannedPeersIDs": null,
+    "bannedPeerIDs": null,
   "bannedIPs": null,
   "minimumPeersToStart": 0,
-  "newHeightTimeoutMS": 2000,
-  "electionTimeoutMS": 2000,
-  "electionVoteTimeoutMS": 2000,
-  "proposeTimeoutMS": 4000,
+  "newHeightTimeoutMS": 4500,
+  "electionTimeoutMS": 1500,
+  "electionVoteTimeoutMS": 1500,
+  "proposeTimeoutMS": 2500,
   "proposeVoteTimeoutMS": 4000,
   "precommitTimeoutMS": 2000,
   "precommitVoteTimeoutMS": 2000,
   "commitTimeoutMS": 2000,
   "roundInterruptTimeoutMS": 2000,
-  "maxTotalBytes": 10000000,
+  "maxTotalBytes": 1000000,
   "maxTransactionCount": 5000,
   "individualMaxTxSize": 4000,
   "dropPercentage": 35,
-  "enabled": true,
+  "metricsEnabled": true,
   "prometheusAddress": "0.0.0.0:9090"
 }
