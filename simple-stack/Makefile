@@ -29,10 +29,33 @@ reset:
 	mkdir -p ../canopy_data/node2/canopy
 	mkdir -p ../canopy_data/node2/logs
 start_with_snapshot:
-	echo "Stopping node1 for downloading latest snapshot data chainID: 1"
-	docker-compose stop node1
+	@echo "Checking for existing canopy data directories..."
+	@if [ -d "../canopy_data/node1/canopy" ]; then \
+		echo "Found existing canopy data in node1. Do you want to delete it? (y/N): "; \
+		read confirm; \
+		if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
+			echo "Stopping node1 for downloading latest snapshot data chainID: 1"; \
+			docker-compose stop node1; \
+			rm -rf ../canopy_data/node1/canopy/; \
+			echo "Deleted node1 canopy data."; \
+		else \
+			echo "Keeping existing node1 data."; \
+		fi; \
+	fi
+	@if [ -d "../canopy_data/node2/canopy" ]; then \
+		echo "Found existing canopy data in node2. Do you want to delete it? (y/N): "; \
+		read confirm; \
+		if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
+			echo "Stopping node2 for downloading latest snapshot data chainID: 2"; \
+			docker-compose stop node2; \
+			rm -rf ../canopy_data/node2/canopy/; \
+			echo "Deleted node2 canopy data."; \
+		else \
+			echo "Keeping existing node2 data."; \
+		fi; \
+	fi
 
-	echo "Downloading snapshot for mainnet chainID: 1"
+	echo "Downloading snapshot for mainnet chainID: 1"	
 	wget -O snapshot.tar.gz $(SNAPSHOT_1_URL)
 
 	echo "Deleting/Recreating node1 datadir"
@@ -46,9 +69,6 @@ start_with_snapshot:
 	rm ./snapshot.tar.gz
 
 	echo "Restarting node1"
-
-	echo "Stopping node2 for downloading latest snapshot data chainID: 2"
-	docker-compose stop node2
 
 	echo "Downloading snapshot for mainnet chainID: 2"
 	wget -O snapshot.tar.gz $(SNAPSHOT_2_URL)
