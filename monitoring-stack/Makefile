@@ -16,6 +16,9 @@ logs:
 reset:
 	docker-compose stop node1 node2
 
+	rm -rf monitoring/loki/data/*
+	rm -rf monitoring/grafana/data/*
+
 	rm -rf ../canopy_data/node1/canopy/
 	rm -rf ../canopy_data/node1/logs/
 
@@ -84,4 +87,4 @@ start_with_snapshot:
 	rm ./snapshot.tar.gz
 
 	echo "Restarting node2 and whole stack"
-	docker-compose up -d 
+	docker-compose up -d
