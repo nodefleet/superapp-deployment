@@ -13,14 +13,14 @@ We added a [.env](./.env) which is the file we use to parametrice all configurat
 
 
 #### Complete Monitoring Stack
-- **Minimum**: 12GB RAM | 12vCPU | 250GB storage
-- **Recommended**: 32GB RAM | 16vCPU | 500GB storage
+- **Minimum**: 8GB RAM | 4vCPU | 100GB storage
+- **Recommended**: 16GB RAM | 8vCPU | 250GB storage
 
 **Component-specific requirements:**
 
 
 #### Canopy Nodes
-- **Minimum**: 4GB RAM | 2vCPU | 100GB storage
+- **Minimum**: 4GB RAM | 2vCPU | 25GB storage
 - **Recommended**: 8GB RAM | 4vCPU | 100GB storage
 
 #### Monitoring components
