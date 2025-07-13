@@ -8,6 +8,11 @@ We added a [.env](./.env) which is the file we use to parametrice all configurat
 
 ## Setup
 
+### System Requirements
+
+#### Canopy Nodes
+- **Minimum**: 4GB RAM | 2vCPU | 100GB storage
+- **Recommended**: 8GB RAM | 4vCPU | 100GB storage
 
 ### .env 
 
