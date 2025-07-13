@@ -235,7 +235,6 @@ keystore.json
 genesis.json
 polls.json
 proposals.json
-config.json
 cli
 
 # monitoring stack data
