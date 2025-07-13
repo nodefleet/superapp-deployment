@@ -1,0 +1,56 @@
+{
+  "logLevel": "debug",
+  "chainId": 1,
+  "sleepUntil": 0,
+  "rootChain": [
+    {
+      "chainId": 1,
+      "url": "http://node1:50002/"
+    },
+    {
+      "chainId": 2,
+      "url": "http://node2:40002/"
+    }
+  ],
+  "runVDF": true,
+  "headless": false,
+  "autoUpdate": true,
+  "runningAutoUpdate": false,
+  "walletPort": "50000",
+  "explorerPort": "50001",
+  "rpcPort": "50002",
+  "adminPort": "50003",
+  "rpcURL": "http://localhost:50002",
+  "adminRPCUrl": "http://localhost:50003",
+  "timeoutS": 3,
+  "dataDirPath": "/root/.canopy",
+  "dbName": "canopy",
+  "inMemory": false,
+  "networkID": 1,
+  "listenAddress": "0.0.0.0:9001",
+  "externalAddress": "tcp://node1.localhost",
+  "maxInbound": 21,
+  "maxOutbound": 7,
+  "trutedPeersIDs": null,
+  "dialPeers": [
+    "8ad02e9b05e418f198e89179685a48b227f1c2bc266d4db002f24f8155c5119cbb9387146319b5dc4a260184f20d5d4f@tcp://cnpy.xyz"
+  ],
+  "bannedPeersIDs": null,
+  "bannedIPs": null,
+  "minimumPeersToStart": 0,
+  "newHeightTimeoutMS": 2000,
+  "electionTimeoutMS": 2000,
+  "electionVoteTimeoutMS": 2000,
+  "proposeTimeoutMS": 4000,
+  "proposeVoteTimeoutMS": 4000,
+  "precommitTimeoutMS": 2000,
+  "precommitVoteTimeoutMS": 2000,
+  "commitTimeoutMS": 2000,
+  "roundInterruptTimeoutMS": 2000,
+  "maxTotalBytes": 10000000,
+  "maxTransactionCount": 5000,
+  "individualMaxTxSize": 4000,
+  "dropPercentage": 35,
+  "enabled": true,
+  "prometheusAddress": "0.0.0.0:9090"
+}
