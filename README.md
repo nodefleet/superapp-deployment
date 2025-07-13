@@ -3,6 +3,8 @@
 
 This repo is home to various deployments flavor for canopy focusing mainly on providing a proper local development enviroment and a secure but flexible staging/production environments as well
 
+Checkout [our official node running docs](https://canopy-network.gitbook.io/docs/node-runner/setup) for production builds
+
 
 ### Validator configuration
 
