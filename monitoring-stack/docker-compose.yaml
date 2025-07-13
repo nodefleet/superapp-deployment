@@ -28,11 +28,12 @@ services:
     env_file:
       - .env
     ports:
-      - 50000:50000 # Wallet
-      - 50001:50001 # Explorer
-      - 50002:50002 # RPC
-      - 50003:50003 # Admin RPC
       - 9001:9001 # TCP P2P
+    expose:
+      - 50000 # Wallet
+      - 50001 # Explorer
+      - 50002 # RPC
+      - 50003 # Admin RPC
     command: [ "start" ]
     volumes:
       - ../canopy_data/node1:/root/.canopy
@@ -49,11 +50,12 @@ services:
     env_file:
       - .env
     ports:
-      - 40000:40000 # Wallet
-      - 40001:40001 # Explorer
-      - 40002:40002 # RPC
-      - 40003:40003 # Admin RPC
       - 9002:9002 # TCP P2P
+    expose:
+      - 40000 # Wallet
+      - 40001 # Explorer
+      - 40002 # RPC
+      - 40003 # Admin RPC
     command: [ "start" ]
     volumes:
       - ../canopy_data/node2:/root/.canopy
@@ -126,7 +128,6 @@ services:
     command: --config.file=/etc/loki/local-config.yaml
     restart: always
     logging: *loki-logging
-
 
   blackbox:
     container_name: blackbox

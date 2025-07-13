@@ -55,7 +55,7 @@ sudo docker plugin install  grafana/loki-docker-driver --alias loki
 ```
 
 
-### grafana notification channels
+### Grafana notification channels
 
 In order to correctly receive the infrastructure and canopy alerts on this setup stack you should configure the discord and the pagerduty notification channel configs:
 
@@ -63,6 +63,42 @@ In order to correctly receive the infrastructure and canopy alerts on this setup
 
 [Pagerduty APIKEY](./monitoring/grafana/provisioning/alerting/pagerduty-alert.yaml#L9)
 
+### Required Ports
+
+This section describes the ports opened externally and internally by this setup. 
+
+Make sure you open the external ports in order to properly configure canopy 
+
+External ports
+
+#### Canopy Node Ports
+- **9001**: TCP P2P communication for node1
+- **9002**: TCP P2P communication for node2
+
+#### Load Balancer Ports
+- **80**: HTTP traffic (redirects to HTTPS in production)
+- **443**: HTTPS traffic (SSL/TLS)
+
+Internal ports
+
+#### Monitoring Ports
+- **3000**: Grafana web interface
+- **9090**: Prometheus metrics endpoint
+- **3100**: Loki log aggregation
+- **8082**: Traefik metrics endpoint
+- **9115**: Blackbox exporter metrics
+- **8080**: cAdvisor container metrics
+- **9100**: Node exporter host metrics
+
+#### Canopy service Ports
+- **50000**: Wallet service for node1 (exposed via Traefik)
+- **50001**: Explorer service for node1 (exposed via Traefik)
+- **50002**: RPC service for node1 (exposed via Traefik)
+- **50003**: Admin RPC service for node1 (exposed via Traefik)
+- **40000**: Wallet service for node2 (exposed via Traefik)
+- **40001**: Explorer service for node2 (exposed via Traefik)
+- **40002**: RPC service for node2 (exposed via Traefik)
+- **40003**: Admin RPC service for node2 (exposed via Traefik)
 
 ## Running
 
@@ -128,9 +164,9 @@ With a `DOMAIN` variable defined on [.env.template](/.env.template) traefik will
 For more information check the Traefik section below
 
 
-### Step 2: Hostname canopy config 
+### Step 2: DOMAIN canopy config
 
-In order to properly expose canopy nodes explorer, rpc and wallet services through our loadbalancer for production purposes you need to configure the following config variables on [node1 config.json](../canopy_data/node1/config.json) and [node2 config.jso](../canopy_data/node2/config.json) respectively and replace it with your domain:
+In order to properly expose canopy nodes explorer, rpc and wallet services through our loadbalancer for production purposes you need to configure the following config variables on [node1 config.json](../canopy_data/node1/config.json) and [node2 config.json](../canopy_data/node2/config.json) respectively and replace it with your domain:
 
 
 Node1 config.json
@@ -166,14 +202,44 @@ Your domain should point to your production server under a wild card subdomain a
 Once it's done, make sure your DNS are properly configured so traefik can request the SSL certificates and expose your canopy and monitoring services under your domain
 
 
-#### Step 4: Define BASIC AUTH  
+### Step 4: Open external ports
+
+
+As described in the ports section, canopy requires the following ports opened in order for canopy and traefik to work:
+
+
+#### Canopy Node Ports
+- **9001**: TCP P2P communication for node1
+- **9002**: TCP P2P communication for node2
+
+#### Load Balancer Ports
+- **80**: HTTP traffic (redirects to HTTPS in production)
+- **443**: HTTPS traffic (SSL/TLS)
+
+
+You should be able to expose this ports via your cloud provider and/or by opening as well ufw as described below
+
+#### Firewall Configuration Example (UFW)
+```bash
+# Canopy P2P ports
+sudo ufw allow 9001/tcp
+sudo ufw allow 9002/tcp
+
+# Load balancer ports
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+```
+
+
+### Step 5: Define BASIC AUTH
 
 By default wallet and explorer endpoints are sensitive endpoints accessed using basic AUTH with the following default password
 
+```
 username: canopy
 
 passwd: canopy 
-
+```
 
 It's mandatory to change this default passwords since wallet/explorer endpoints are SENSITIVES for securing your validator
  
@@ -191,7 +257,7 @@ After you save this file, traefik will automatically reload and allow the new pa
 IMPORTANT: WE DO NOT RECOMMEND exposing wallet endpoint without making sure you are securing your validator 
 ```
 
-### Step 5: Run
+### Step 6: Run
 
 
 ```bash
