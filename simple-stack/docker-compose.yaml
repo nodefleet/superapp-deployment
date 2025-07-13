@@ -2,7 +2,7 @@
 services:
   node1:
     container_name: node1
-    image: nodefleet/canopy
+    image: canopynetwork/canopy
     build:
       context: ../docker_image
       dockerfile: ./Dockerfile
@@ -32,7 +32,7 @@ services:
 
   node2:
     container_name: node2
-    image: nodefleet/canopy
+    image: canopynetwork/canopy
     env_file:
       - .env
     ports:

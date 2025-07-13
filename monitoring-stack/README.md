@@ -157,9 +157,15 @@ sudo make reset
 This stack lets you run a semi-production deployment of the canopy stack by just changing a small number of settings shown below: 
 
 
-### Step 1: Define your "$DOMAIN" variable
+### Step 1: Define your env variables
+ 
+#### $DOMAIN
 
 With a `DOMAIN` variable defined on [.env.template](/.env.template) traefik will expose and validate SSL on this endpoints externally using the prefix shown in the first running section  
+
+#### $ACME_EMAIL
+
+We use this env variable to request SSL ACME certificate during [traefik HTTPS validation](./loadbalancer/traefik.yml)
 
 For more information check the Traefik section below
 

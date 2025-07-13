@@ -37,13 +37,13 @@ entryPoints:
 certificatesresolvers:
   https-resolver:
     acme:
-      email: lowell@nodefleet.net
+      email: ${ACME_EMAIL}
       storage: /letsencrypt/acme.json
       httpChallenge:
         entryPoint: web
   namecheap:
     acme:
-      email: lowell@nodefleet.net
+      email: ${ACME_EMAIL}
       caServer: https://acme-v02.api.letsencrypt.org/directory
       storage: /letsencrypt/acme.json
       dnschallenge:
@@ -54,8 +54,7 @@ certificatesresolvers:
 
   cloudflare:
     acme:
-      email: lowell@nodefleet.net 
-      #caserver: https://acme-staging-v02.api.letsencrypt.org/directory
+      email: ${ACME_EMAIL}
       storage: /letsencrypt/acme.json
       dnschallenge:
         resolvers:
