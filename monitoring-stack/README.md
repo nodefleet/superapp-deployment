@@ -163,20 +163,11 @@ This stack lets you run a semi-production deployment of the canopy stack by just
 
 With a `DOMAIN` variable defined on [.env.template](/.env.template) traefik will expose and validate SSL on this endpoints externally using the prefix shown in the first running section  
 
-#### $ACME_EMAIL
-
-We use this env variable to request SSL ACME certificate during [traefik HTTPS validation](./loadbalancer/traefik.yml)
-
-For more information check the Traefik section below
-
-
-### Step 2: DOMAIN canopy config
-
-In order to properly expose canopy nodes explorer, rpc and wallet services through our loadbalancer for production purposes you need to configure the following config variables on [node1 config.json](../canopy_data/node1/config.json) and [node2 config.json](../canopy_data/node2/config.json) respectively and replace it with your domain:
+It will also properly configure to expose canopy nodes explorer, rpc and wallet services on the config.json files by using 
+[entrypoint.sh](../docker_image/entrypoint.sh)  on [node1 config.json](../canopy_data/node1/config.json) and [node2 config.json](../canopy_data/node2/config.json) 
 
 
 Node1 config.json
-
 ```
   "rpcURL": "https://rpc.node1.<YOUR_DOMAIN>:50002",
 
@@ -194,6 +185,15 @@ Node2 config.json
 
   "externalAddress": "tcp://node2.<YOUR_DOMAIN>",
 ```
+
+
+#### $ACME_EMAIL
+
+We use this env variable to request SSL ACME certificate during [traefik HTTPS validation](./loadbalancer/traefik.yml)
+
+For more information check the Traefik section below
+
+
 
 ### Step 3:  Configure your DNS
 
