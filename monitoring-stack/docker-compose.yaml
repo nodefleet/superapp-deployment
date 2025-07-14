@@ -24,7 +24,7 @@ services:
         WALLET_BASE_PATH: '/'
         BUILD_PATH: cmd/cli
         BIN_PATH: $BIN_PATH
-        BRANCH: beta-0.1.1
+        BRANCH: beta-0.1.2
     env_file:
       - .env
     ports:
