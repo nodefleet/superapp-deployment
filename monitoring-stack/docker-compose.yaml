@@ -14,6 +14,7 @@ x-loki:
 services:
   node1:
     container_name: node1
+    hostname: node1
     image: canopynetwork/canopy
     build:
       context: ../docker_image
@@ -37,6 +38,7 @@ services:
     command: [ "start" ]
     volumes:
       - ../canopy_data/node1:/root/.canopy
+      - ../docker_image/entrypoint.sh:/app/entrypoint.sh
     logging: *loki-logging
     deploy:
       resources:
@@ -46,6 +48,7 @@ services:
 
   node2:
     container_name: node2
+    hostname: node2
     image: canopynetwork/canopy
     env_file:
       - .env
@@ -59,6 +62,7 @@ services:
     command: [ "start" ]
     volumes:
       - ../canopy_data/node2:/root/.canopy
+      - ../docker_image/entrypoint.sh:/app/entrypoint.sh
     logging: *loki-logging
     deploy:
       resources:
