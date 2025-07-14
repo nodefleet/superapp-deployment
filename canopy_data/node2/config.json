@@ -38,7 +38,7 @@
   "electionTimeoutMS": 1500,
   "electionVoteTimeoutMS": 1500,
   "proposeTimeoutMS": 2500,
-  "proposeVoteTimeoutMS": 4000,
+  "proposeVoteTimeoutMS": 3000,
   "precommitTimeoutMS": 2000,
   "precommitVoteTimeoutMS": 2000,
   "commitTimeoutMS": 2000,
