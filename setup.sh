@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "setting up the validator key"
 docker build -t canopy --build-arg 'BRANCH=beta-0.1.3' --build-arg BUILD_PATH=cmd/cli  ./docker_image/ && \
 docker run --user root -it -p 50000:50000 -p 50001:50001 -p 50002:50002 -p 50003:50003 -p 9001:9001 --name canopy-config  --volume ${PWD}/canopy_data/node1/:/root/.canopy/ canopy && \
@@ -74,7 +74,7 @@ if [[ -n "$ACME_EMAIL" ]]; then
   TRAEFIK_PATH="$STACK_PATH/loadbalancer/traefik.yml"
   if grep -q "\${ACME_EMAIL}" "$TRAEFIK_PATH"; then
     echo "Replacing \${ACME_EMAIL} with $ACME_EMAIL in $TRAEFIK_PATH"
-    sed -i '' "s|\${ACME_EMAIL}|$ACME_EMAIL|g" "$TRAEFIK_PATH"
+    sed -i "s|\${ACME_EMAIL}|$ACME_EMAIL|g" "$TRAEFIK_PATH"
   else
     echo "ACME_EMAIL already set."
   fi
@@ -87,7 +87,7 @@ if [[ -n "$DOMAIN" ]]; then
   # perform the sed substitution for the node-1 config.json
   if grep -q "tcp://node1.localhost" "$NODE1_CONFIG"; then
     echo "Replacing localhost with $DOMAIN in $NODE1_CONFIG"
-    sed -i '' "s|tcp://node1.localhost|tcp://node1.$DOMAIN|g" "$NODE1_CONFIG"
+    sed -i "s|tcp://node1.localhost|tcp://node1.$DOMAIN|g" "$NODE1_CONFIG"
   else
     echo "localhost already replaced with $DOMAIN."
   fi
@@ -97,7 +97,7 @@ if [[ -n "$DOMAIN" ]]; then
   # perform the sed substitution for the node-2 config.json
   if grep -q "tcp://node2.localhost" "$NODE2_CONFIG"; then
     echo "Replacing localhost with $DOMAIN in $NODE2_CONFIG"
-    sed -i '' "s|tcp://node2.localhost|tcp://node2.$DOMAIN|g" "$NODE2_CONFIG"
+    sed -i "s|tcp://node2.localhost|tcp://node2.$DOMAIN|g" "$NODE2_CONFIG"
   else
     echo "localhost already replaced with $DOMAIN."
   fi
