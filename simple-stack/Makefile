@@ -5,16 +5,16 @@ ifneq (,$(wildcard .env))
 endif
 
 build:
-	docker-compose build
+	docker compose build
 up:
-	docker-compose down
-	docker-compose up -d
+	docker compose down
+	docker compose up -d
 down:
-	docker-compose down
+	docker compose down
 logs:
-	docker-compose logs -f node1 node2
+	docker compose logs -f node1 node2
 reset:
-	docker-compose stop node1 node2
+	docker compose stop node1 node2
 
 	rm -rf ../canopy_data/node1/canopy/
 	rm -rf ../canopy_data/node1/logs/
@@ -35,7 +35,7 @@ start_with_snapshot:
 		read confirm; \
 		if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
 			echo "Stopping node1 for downloading latest snapshot data chainID: 1"; \
-			docker-compose stop node1; \
+			docker compose stop node1; \
 			rm -rf ../canopy_data/node1/canopy/; \
 			echo "Deleted node1 canopy data."; \
 		else \
@@ -47,7 +47,7 @@ start_with_snapshot:
 		read confirm; \
 		if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
 			echo "Stopping node2 for downloading latest snapshot data chainID: 2"; \
-			docker-compose stop node2; \
+			docker compose stop node2; \
 			rm -rf ../canopy_data/node2/canopy/; \
 			echo "Deleted node2 canopy data."; \
 		else \
@@ -84,4 +84,4 @@ start_with_snapshot:
 	rm ./snapshot.tar.gz
 
 	echo "Restarting node2 and whole stack"
-	docker-compose up -d 
+	docker compose up -d 
