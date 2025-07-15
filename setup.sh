@@ -24,36 +24,18 @@ else
     SETUP_TYPE="full"
 fi
 
-# set destination paths based on setup type
 if [[ "$SETUP_TYPE" == "simple" ]]; then
-    STACK_PATH="$(realpath "$(dirname "$0")/simple-stack/")"
-else
-    STACK_PATH="$(realpath "$(dirname "$0")/monitoring-stack/")"
+  echo "setup complete ✅"
+  exit 0
 fi
 
-# only ask for domain and email if setup type is "full"
+STACK_PATH="$(realpath "$(dirname "$0")/monitoring-stack/")"
 
 # ask user for domain input
-read -p "Please enter the domain [optional for simple setup]: " DOMAIN
-
-if [[ "$SETUP_TYPE" == "full" ]]; then
-  # validate that domain is not empty for full setup
-  while [[ -z "$DOMAIN" ]]; do
-      echo "Domain cannot be empty."
-      read -p "Please enter the domain: " DOMAIN
-  done
-fi
+read -p "Please enter the domain [default: localhost]: " DOMAIN
 
 # ask user for acme email input
-read -p "Please enter email to validate the domain against [optional for simple setup]: " ACME_EMAIL
-
-if [[ "$SETUP_TYPE" == "full" ]]; then
-  # validate that email is not empty for full setup
-  while [[ -z "$ACME_EMAIL" ]]; do
-      echo "email cannot be empty."
-      read -p "Please enter the email: " ACME_EMAIL
-  done
-fi
+read -p "Please enter email to validate the domain against [default: test@example.com]: " ACME_EMAIL
 
 # define the path to the template and new .env file
 ENV_TEMPLATE_FILE="$STACK_PATH/.env.template"
@@ -66,8 +48,13 @@ if [[ ! -f "$ENV_TEMPLATE_FILE" ]]; then
 fi
 
 # perform sed substitution and create new .env file
-sed -e "s/DOMAIN=.*/DOMAIN=$DOMAIN/" -e "s/ACME_EMAIL=.*/ACME_EMAIL=$ACME_EMAIL/" "$ENV_TEMPLATE_FILE" > "$ENV_FILE"
-echo "Created .env file with domain: $DOMAIN and email: $ACME_EMAIL"
+if [[ -n "$DOMAIN" ]]; then
+  sed -e "s/DOMAIN=.*/DOMAIN=$DOMAIN/" -e "s/ACME_EMAIL=.*/ACME_EMAIL=$ACME_EMAIL/" "$ENV_TEMPLATE_FILE" > "$ENV_FILE"
+  echo "Created .env file with domain: $DOMAIN and email: $ACME_EMAIL"
+else
+  cp "$ENV_TEMPLATE_FILE" "$ENV_FILE"
+  echo "Created .env file with default values"
+fi
 
 # perform the sed substitution for the traefik.yml
 if [[ -n "$ACME_EMAIL" ]]; then
