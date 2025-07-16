@@ -2,7 +2,7 @@ FROM node:18-alpine AS builder
 
 ARG WALLET_DIR
 ARG EXPLORER_DIR 
-ARG BRANCH='main'
+ARG BRANCH='latest'
 ARG CLI_DIR
 ARG BUILD_PATH=cmd/cli
 ARG GO_BIN_DIR
@@ -12,8 +12,17 @@ ARG BIN_PATH=/bin/cli
 # downloads git and clones selected version
 RUN apk add --no-cache git ca-certificates alpine-sdk
 WORKDIR /go/src/github.com/canopy-network/canopy
-RUN echo "Building ${BRANCH} version"
-RUN echo "Cloning" && git clone -b ${BRANCH} https://github.com/canopy-network/canopy.git .
+RUN echo "Building from BRANCH=${BRANCH}" && \
+    if [ "$BRANCH" = "latest" ]; then \
+        echo "Fetching latest tag..."; \
+        git clone https://github.com/canopy-network/canopy.git . && \
+        LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`) && \
+        echo "Checking out tag $LATEST_TAG" && \
+        git checkout $LATEST_TAG; \
+    else \
+        echo "Cloning branch $BRANCH" && \
+        git clone -b "$BRANCH" https://github.com/canopy-network/canopy.git .; \
+    fi
 # copy golang 
 COPY --from=golang:1.23.9-alpine  /usr/local/go/ /usr/local/go/
 ENV PATH="/usr/local/go/bin:${PATH}"
