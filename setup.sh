@@ -71,23 +71,67 @@ NODE1_CONFIG="$(realpath "$(dirname "$0")/canopy_data/node1/config.json")"
 NODE2_CONFIG="$(realpath "$(dirname "$0")/canopy_data/node2/config.json")"
 
 if [[ -n "$DOMAIN" ]]; then
-  # perform the sed substitution for the node-1 config.json
+  echo "Using domain: $DOMAIN"
+
+  # Replace tcp URLs in node1 config
   if grep -q "tcp://node1.localhost" "$NODE1_CONFIG"; then
-    echo "Replacing localhost with $DOMAIN in $NODE1_CONFIG"
+    echo "Replacing node1.localhost with node1.$DOMAIN"
     sed -i "s|tcp://node1.localhost|tcp://node1.$DOMAIN|g" "$NODE1_CONFIG"
-  else
-    echo "localhost already replaced with $DOMAIN."
   fi
-fi
 
-if [[ -n "$DOMAIN" ]]; then
-  # perform the sed substitution for the node-2 config.json
+  # Replace tcp URLs in node2 config
   if grep -q "tcp://node2.localhost" "$NODE2_CONFIG"; then
-    echo "Replacing localhost with $DOMAIN in $NODE2_CONFIG"
+    echo "Replacing node2.localhost with node2.$DOMAIN"
     sed -i "s|tcp://node2.localhost|tcp://node2.$DOMAIN|g" "$NODE2_CONFIG"
-  else
-    echo "localhost already replaced with $DOMAIN."
   fi
+
+  # Replace RPC and Admin RPC URLs for node1
+  sed -i -E \
+    -e "s|\"rpcURL\": *\"http://localhost:50002\"|\"rpcURL\": \"https://rpc.node1.$DOMAIN\"|" \
+    -e "s|\"adminRPCUrl\": *\"http://localhost:50003\"|\"adminRPCUrl\": \"https://adminrpc.node1.$DOMAIN\"|" \
+    "$NODE1_CONFIG"
+
+  # Replace RPC and Admin RPC URLs for node2
+  sed -i -E \
+    -e "s|\"rpcURL\": *\"http://localhost:40002\"|\"rpcURL\": \"https://rpc.node2.$DOMAIN\"|" \
+    -e "s|\"adminRPCUrl\": *\"http://localhost:40003\"|\"adminRPCUrl\": \"https://adminrpc.node2.$DOMAIN\"|" \
+    "$NODE2_CONFIG"
 fi
 
-echo "setup complete ✅"
+set -e
+
+
+YAML_PATH="monitoring-stack/loadbalancer/services/middleware.yaml"
+
+echo "Enter username:"
+read USERNAME
+
+echo "Enter password:"
+read -s PASSWORD
+echo
+
+if ! command -v htpasswd &> /dev/null; then
+  echo "Error: htpasswd not found. Please install apache2-utils."
+  exit 1
+fi
+
+HTPASSWD_LINE=$(htpasswd -nbB "$USERNAME" "$PASSWORD")
+
+# Escape $ for sed and wrap in quotes
+ESCAPED_LINE=$(printf '%s' "$HTPASSWD_LINE" | sed 's/\$/\\\$/g')
+# Use sed to replace the entire users list in the yaml
+# This assumes your users list is indented exactly 8 spaces under users:
+# and users: line is at indentation level 6 spaces.
+# Adjust indentation accordingly if different.
+
+# Wrap in quotes and indent with 8 spaces (adjust as needed)
+FINAL_LINE="          - \"$ESCAPED_LINE\""
+
+sed -i.bak -E "/basicAuth:/,/- /{
+  /users:/ {
+    N
+    s|users:\n *-.*|users:\n$FINAL_LINE|
+  }
+}" "$YAML_PATH"
+
+echo "Updated users list in $YAML_PATH"
