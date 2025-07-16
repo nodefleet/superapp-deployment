@@ -229,6 +229,7 @@ LOCK
 MANIFEST
 .gz
 log
+log*.gz
 book.json
 validator_key.json
 keystore.json
