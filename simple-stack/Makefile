@@ -13,6 +13,9 @@ up:
 	docker compose up -d
 down:
 	docker compose down
+restart_with_latest:
+	make pull
+	make up
 logs:
 	docker compose logs -f node1 node2
 reset:
