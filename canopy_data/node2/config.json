@@ -23,7 +23,7 @@
   "dbName": "canopy",
   "inMemory": false,
   "networkID": 1,
-  "listenAddress": "0.0.0.0:9001",
+  "listenAddress": "0.0.0.0:9002",
   "externalAddress": "tcp://node2.localhost",
   "maxInbound": 21,
   "maxOutbound": 7,
