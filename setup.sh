@@ -75,14 +75,14 @@ if [[ -n "$DOMAIN" ]]; then
 
   # Replace tcp URLs in node1 config
   if grep -q "tcp://node1.localhost" "$NODE1_CONFIG"; then
-    echo "Replacing node1.localhost with node1.$DOMAIN"
-    sed -i "s|tcp://node1.localhost|tcp://node1.$DOMAIN|g" "$NODE1_CONFIG"
+    echo "Replacing node1.localhost with $DOMAIN"
+    sed -i "s|tcp://node1.localhost|tcp://$DOMAIN|g" "$NODE1_CONFIG"
   fi
 
   # Replace tcp URLs in node2 config
   if grep -q "tcp://node2.localhost" "$NODE2_CONFIG"; then
-    echo "Replacing node2.localhost with node2.$DOMAIN"
-    sed -i "s|tcp://node2.localhost|tcp://node2.$DOMAIN|g" "$NODE2_CONFIG"
+    echo "Replacing node2.localhost with $DOMAIN"
+    sed -i "s|tcp://node2.localhost|tcp://$DOMAIN|g" "$NODE2_CONFIG"
   fi
 
   # Replace RPC and Admin RPC URLs for node1
