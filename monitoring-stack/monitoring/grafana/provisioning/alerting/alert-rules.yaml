@@ -828,7 +828,7 @@ groups:
                 conditions:
                     - evaluator:
                         params:
-                            - 1000
+                            - 5000
                         type: gt
                       operator:
                         type: and
@@ -854,7 +854,7 @@ groups:
           annotations:
             __dashboardUid__: fejf7y7gcnwg0e
             __panelId__: "27"
-            description: MempoolCount over 1,000
+            description: MempoolCount over 5,000
             summary: MempoolCount over low limit
           labels:
             canopy: MempoolCount
