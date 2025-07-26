@@ -74,15 +74,15 @@ if [[ -n "$DOMAIN" ]]; then
   echo "Using domain: $DOMAIN"
 
   # Replace tcp URLs in node1 config
-  if grep -q "tcp://node1.localhost" "$NODE1_CONFIG"; then
-    echo "Replacing node1.localhost with $DOMAIN"
-    sed -i "s|tcp://node1.localhost|tcp://$DOMAIN|g" "$NODE1_CONFIG"
+  if grep -q "tcp://canopy.localhost" "$NODE1_CONFIG"; then
+    echo "Replacing canopy.localhost with $DOMAIN"
+    sed -i "s|tcp://canopy.localhost|tcp://$DOMAIN|g" "$NODE1_CONFIG"
   fi
 
   # Replace tcp URLs in node2 config
-  if grep -q "tcp://node2.localhost" "$NODE2_CONFIG"; then
-    echo "Replacing node2.localhost with $DOMAIN"
-    sed -i "s|tcp://node2.localhost|tcp://$DOMAIN|g" "$NODE2_CONFIG"
+  if grep -q "tcp://canopy.localhost" "$NODE2_CONFIG"; then
+    echo "Replacing canopy.localhost with $DOMAIN"
+    sed -i "s|tcp://canopy.localhost|tcp://$DOMAIN|g" "$NODE2_CONFIG"
   fi
 
   # Replace RPC and Admin RPC URLs for node1
