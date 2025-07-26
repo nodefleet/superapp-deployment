@@ -2837,4 +2837,541 @@ groups:
           isPaused: false
           notification_settings:
             receiver: pagerduty
+    - orgId: 1
+      name: canopy-special-alarm
+      folder: canopy
+      interval: 30s
+      rules:
+        - uid: bet22ib8zfchsb
+          title: DoubleSignerCount
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_double_signer_count{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 77
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "77"
+            description: IMPORTANT check your node since DoubleSignerCount has been detected
+            summary: DoubleSignerCount detected
+          labels:
+            canopy: DoubleSignerCount
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: bet22rh7v21ogf
+          title: DoubleSigner
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_double_signer{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 78
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "78"
+            description: DoubleSigner has been detected
+            summary: DoubleSigner detected
+          labels:
+            canopy: DoubleSigner
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: det23aosm0o3kd
+          title: NonSignerCount hard limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_non_signer_count{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 50
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 79
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "79"
+            description: NonSignerCount is over 50
+            summary: NonSignerCount over hard limit
+          labels:
+            canopy: NonSignerCount
+          isPaused: false
+          notification_settings:
+            receiver: pagerduty
+        - uid: cet23mfpn4ohsb
+          title: NonSigner soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_non_signer{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 80
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          keepFiringFor: 30s
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "80"
+            description: NonSigner over 1
+            summary: NonSigner soft limit
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: bet23q17qm9kwd
+          title: NonSigner hard limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_non_signer{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 80
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "80"
+            description: NonSigner over 2
+            summary: NonSigner hard limit
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: cet246jqxla80f
+          title: NonSignerCount soft limit
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_non_signer_count{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 20
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 79
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          keepFiringFor: 1m
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "79"
+            description: NonSignerCount over 20
+            summary: NonSignerCount soft limit
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: eet2750fffe2ob
+          title: DoubleSigner discord
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_double_signer{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 78
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "78"
+            description: DoubleSigner has been detected
+            summary: DoubleSigner detected
+          labels:
+            canopy: DoubleSigner
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
+        - uid: fet276rvikwlcc
+          title: DoubleSignerCount discord
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 1800
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                adhocFilters: []
+                datasource:
+                    type: prometheus
+                    uid: PBFA97CFB590B2093
+                disableTextWrap: false
+                editorMode: code
+                expr: canopy_validator_double_signer_count{job="canopy"}
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{instance}}'
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: fejf7y7gcnwg0e
+          panelId: 77
+          noDataState: NoData
+          execErrState: Error
+          for: 30s
+          annotations:
+            __dashboardUid__: fejf7y7gcnwg0e
+            __panelId__: "77"
+            description: IMPORTANT check your node since DoubleSignerCount has been detected
+            summary: DoubleSignerCount detected
+          labels:
+            canopy: DoubleSignerCount
+          isPaused: false
+          notification_settings:
+            receiver: Discord alert
 
