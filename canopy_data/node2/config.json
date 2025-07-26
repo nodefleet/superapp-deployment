@@ -24,7 +24,7 @@
   "inMemory": false,
   "networkID": 1,
   "listenAddress": "0.0.0.0:9002",
-  "externalAddress": "tcp://node2.localhost",
+  "externalAddress": "tcp://canopy.localhost",
   "maxInbound": 21,
   "maxOutbound": 7,
   "trustedPeerIDs": null,
