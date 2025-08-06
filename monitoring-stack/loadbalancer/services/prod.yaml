@@ -50,6 +50,7 @@ http:
       - websecure
       middlewares:
       - https-redirect
+      - basic-auth
       tls:
         certResolver: https-resolver
     canopy-wallet2:
@@ -91,6 +92,7 @@ http:
       - websecure
       middlewares:
       - https-redirect
+      - basic-auth
       tls:
         certResolver: https-resolver
   services:
