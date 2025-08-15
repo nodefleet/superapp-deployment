@@ -21,11 +21,9 @@ services:
       dockerfile: ./Dockerfile
       network: host
       args:
-        EXPLORER_BASE_PATH: '/explorer'
-        WALLET_BASE_PATH: '/wallet'
         BUILD_PATH: cmd/cli
         BIN_PATH: $BIN_PATH
-        BRANCH: latest
+        BRANCH: change-front-conf-no-base-path 
     env_file:
       - .env
     ports:

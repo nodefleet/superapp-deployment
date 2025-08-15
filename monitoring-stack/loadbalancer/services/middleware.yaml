@@ -45,6 +45,20 @@ http:
         prefixes:
           - "/adminrpc"
 
+   # Redirect /wallet to /wallet/
+    wallet-redirect:
+      redirectRegex:
+        regex: "^(.*)/wallet$"
+        replacement: "${1}/wallet/"
+        permanent: true
+
+    # Redirect /explorer to /explorer/
+    explorer-redirect:
+      redirectRegex:
+        regex: "^(.*)/explorer$"
+        replacement: "${1}/explorer/"
+        permanent: true
+
     websocket-headers:
       headers:
         customRequestHeaders:

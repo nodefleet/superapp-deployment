@@ -13,6 +13,21 @@ http:
       tls:
         certResolver: https-resolver
 
+
+    # New router for /wallet redirect (higher priority)
+    canopy-node1-wallet-redirect:
+      rule: Host(`node1.{{ env "DOMAIN" }}`) && Path(`/wallet`)
+      service: canopy-wallet
+      priority: 2  # Higher priority than the main wallet router
+      entryPoints:
+        - web
+        - websecure
+      middlewares:
+        - https-redirect
+        - wallet-redirect
+      tls:
+        certResolver: https-resolver
+
     canopy-node1-wallet:
       rule: Host(`node1.{{ env "DOMAIN" }}`) && PathPrefix(`/wallet`)
       service: canopy-wallet
@@ -24,6 +39,20 @@ http:
         - https-redirect
         - basic-auth
         - strip-wallet-prefix
+      tls:
+        certResolver: https-resolver
+
+    # New router for /explorer redirect (higher priority)
+    canopy-node1-explorer-redirect:
+      rule: Host(`node1.{{ env "DOMAIN" }}`) && Path(`/explorer`)
+      service: canopy-explorer
+      priority: 2  # Higher priority than the main explorer router
+      entryPoints:
+        - web
+        - websecure
+      middlewares:
+        - https-redirect
+        - explorer-redirect
       tls:
         certResolver: https-resolver
 
@@ -39,7 +68,6 @@ http:
         - strip-explorer-prefix
       tls:
         certResolver: https-resolver
-
 
     canopy-node1-rpc:
       rule: Host(`node1.{{ env "DOMAIN" }}`) && PathPrefix(`/rpc`)
@@ -67,6 +95,20 @@ http:
         - strip-adminrpc-prefix
       tls:
         certResolver: https-resolver
+    
+    # New router for node2 /wallet redirect (higher priority)
+    canopy-node2-wallet-redirect:
+      rule: Host(`node2.{{ env "DOMAIN" }}`) && Path(`/wallet`)
+      service: canopy-wallet2
+      priority: 2  # Higher priority than the main wallet router
+      entryPoints:
+        - web
+        - websecure
+      middlewares:
+        - https-redirect
+        - wallet-redirect
+      tls:
+        certResolver: https-resolver
 
     canopy-node2-wallet:
       rule: Host(`node2.{{ env "DOMAIN" }}`) && PathPrefix(`/wallet`)
@@ -79,6 +121,20 @@ http:
         - https-redirect
         - basic-auth
         - strip-wallet-prefix
+      tls:
+        certResolver: https-resolver
+
+    # New router for node2 /explorer redirect (higher priority)
+    canopy-node2-explorer-redirect:
+      rule: Host(`node2.{{ env "DOMAIN" }}`) && Path(`/explorer`)
+      service: canopy-explorer2
+      priority: 2  # Higher priority than the main explorer router
+      entryPoints:
+        - web
+        - websecure
+      middlewares:
+        - https-redirect
+        - explorer-redirect
       tls:
         certResolver: https-resolver
 
