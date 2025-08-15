@@ -15,7 +15,7 @@ services:
   node1:
     container_name: node1
     hostname: node1
-    image: canopynetwork/canopy:latest-prod
+    image: canopynetwork/canopy
     build:
       context: ../docker_image
       dockerfile: ./Dockerfile
@@ -47,7 +47,7 @@ services:
   node2:
     container_name: node2
     hostname: node2
-    image: canopynetwork/canopy:latest-prod
+    image: canopynetwork/canopy
     env_file:
       - .env
     ports:
