@@ -24,14 +24,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1
+        with:
+          version: latest
         run: |
-          TAG=${{ github.event.client_payload.tag }}
-          docker build \
-            -t canopynetwork/canopy:${TAG} \
-            -t canopynetwork/canopy:latest \
-            --build-arg BRANCH=${TAG} \
-            --build-arg BUILD_PATH=cmd/cli \
-            ./docker_image/
-          docker push canopynetwork/canopy:${TAG}
+          TAG=${{ github.event.client_payload.tag }
+          docker-compose -f ./monitoring-stack/docker-compose.yaml build node1 
+          docker tag canopynetwork/canopy:latest canopynetwork/canopy:${TAG}
           docker push canopynetwork/canopy:latest
+          docker push canopynetwork/canopy:${TAG}
