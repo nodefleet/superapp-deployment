@@ -35,3 +35,17 @@ jobs:
             ./docker_image/
           docker push canopynetwork/canopy:${TAG}
           docker push canopynetwork/canopy:latest
+
+      - name: Build and push monitoring image
+        run: |
+          TAG=${{ github.event.client_payload.tag }}
+          docker build \
+            -t canopynetwork/canopy:${TAG}-prod \
+            -t canopynetwork/canopy:latest-prod \
+            --build-arg BRANCH=${TAG} \
+            --build-arg BUILD_PATH=cmd/cli \
+            --build-arg WALLET_BASE_PATH=/wallet \
+            --build-arg EXPLORER_BASE_PATH=/explorer \
+            ./docker_image/
+          docker push canopynetwork/canopy:${TAG}-prod
+          docker push canopynetwork/canopy:latest-prod
