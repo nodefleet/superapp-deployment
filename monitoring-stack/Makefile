@@ -7,7 +7,7 @@ endif
 build:
 	docker compose build
 pull:
-	docker pull canopynetwork/canopy:latest-prod
+	docker pull canopynetwork/canopy
 up:
 	docker compose down
 	docker compose up -d

@@ -23,7 +23,7 @@ services:
       args:
         BUILD_PATH: cmd/cli
         BIN_PATH: $BIN_PATH
-        BRANCH: change-front-conf-no-base-path 
+        BRANCH: latest 
     env_file:
       - .env
     ports:
