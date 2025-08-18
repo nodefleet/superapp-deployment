@@ -25,6 +25,40 @@ http:
         users:
           - "canopy:$apr1$GnHnOP0b$zWcOv5kosOuUAuvrlu72C0"
 
+    strip-wallet-prefix:
+      stripPrefix:
+        prefixes:
+          - "/wallet"
+
+    strip-explorer-prefix:
+      stripPrefix:
+        prefixes:
+          - "/explorer"
+
+    strip-rpc-prefix:
+      stripPrefix:
+        prefixes:
+          - "/rpc"
+
+    strip-adminrpc-prefix:
+      stripPrefix:
+        prefixes:
+          - "/adminrpc"
+
+   # Redirect /wallet to /wallet/
+    wallet-redirect:
+      redirectRegex:
+        regex: "^(.*)/wallet$"
+        replacement: "${1}/wallet/"
+        permanent: true
+
+    # Redirect /explorer to /explorer/
+    explorer-redirect:
+      redirectRegex:
+        regex: "^(.*)/explorer$"
+        replacement: "${1}/explorer/"
+        permanent: true
+
     websocket-headers:
       headers:
         customRequestHeaders:
