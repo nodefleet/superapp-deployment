@@ -89,12 +89,16 @@ if [[ -n "$DOMAIN" ]]; then
   sed -i -E \
     -e "s|\"rpcURL\": *\"http://localhost:50002\"|\"rpcURL\": \"https://node1.$DOMAIN/rpc\"|" \
     -e "s|\"adminRPCUrl\": *\"http://localhost:50003\"|\"adminRPCUrl\": \"https://node1.$DOMAIN/adminrpc\"|" \
+    -e "s|\"rpcURL\": *\"https://rpc.node1.$DOMAIN\"|\"rpcURL\": \"https://node1.$DOMAIN/rpc\"|" \
+    -e "s|\"adminRPCUrl\": *\"https://adminrpc.node1.$DOMAIN\"|\"adminRPCUrl\": \"https://node1.$DOMAIN/adminrpc\"|" \
     "$NODE1_CONFIG"
 
   # Replace RPC and Admin RPC URLs for node2
   sed -i -E \
     -e "s|\"rpcURL\": *\"http://localhost:40002\"|\"rpcURL\": \"https://node2.$DOMAIN/rpc\"|" \
     -e "s|\"adminRPCUrl\": *\"http://localhost:40003\"|\"adminRPCUrl\": \"https://node2.$DOMAIN/adminrpc\"|" \
+    -e "s|\"rpcURL\": *\"https://rpc.node2.$DOMAIN\"|\"rpcURL\": \"https://node2.$DOMAIN/rpc\"|" \
+    -e "s|\"adminRPCUrl\": *\"https://adminrpc.node2.$DOMAIN\"|\"adminRPCUrl\": \"https://node2.$DOMAIN/adminrpc\"|" \
     "$NODE2_CONFIG"
 fi
 
