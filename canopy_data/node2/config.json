@@ -9,7 +9,7 @@
     },
     {
       "chainId": 2,
-      "url": "http://node2:50002"
+      "url": "http://node2:40002"
     }
 
   ],
