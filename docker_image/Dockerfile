@@ -52,6 +52,8 @@ COPY --from=builder /bin/cli /bin/cli
 # Copying entrypoint for persisting update cli
 COPY entrypoint.sh /app/entrypoint.sh
 
+RUN apk add --no-cache pigz ca-certificates
+
 RUN chmod +x /bin/cli
 RUN chmod +x /app/canopy
 RUN chmod +x /app/entrypoint.sh
