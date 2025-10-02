@@ -1,0 +1,3 @@
+[submodule "monitoring-stack/frontend"]
+	path = monitoring-stack/frontend
+	url = https://github.com/nodefleet/canopy-frontend.git

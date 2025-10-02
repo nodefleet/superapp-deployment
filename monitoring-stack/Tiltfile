@@ -1,0 +1,216 @@
+# Tiltfile for Canopy Monitoring Stack with Frontend
+# Provides hot reloading, automatic rebuilds, and monitoring for the complete stack
+
+# Configuration
+load('ext://restart_process', 'docker_build_with_restart')
+load('ext://helm_remote', 'helm_remote')
+
+# Set up local development environment
+allow_k8s_contexts(['kind-dev', 'docker-desktop', 'minikube'])
+
+# Build configuration
+FRONTEND_DOCKERFILE = './frontend/Dockerfile.dev'
+FRONTEND_IMAGE_NAME = 'canopy-frontend-dev'
+
+# =============================================================================
+# Docker Compose Services
+# =============================================================================
+
+# Use docker-compose for the monitoring stack services
+docker_compose('./docker-compose.yaml')
+
+# =============================================================================
+# Frontend Development with Hot Reload
+# =============================================================================
+
+# Build frontend Docker image with live reload
+docker_build(
+    FRONTEND_IMAGE_NAME,
+    context='./frontend',
+    dockerfile='./frontend/Dockerfile.dev',
+    # Only rebuild when these files change
+    only=[
+        './frontend/app/',
+        './frontend/components/',
+        './frontend/lib/',
+        './frontend/types/',
+        './frontend/public/',
+        './frontend/styles/',
+        './frontend/package.json',
+        './frontend/package-lock.json',
+        './frontend/next.config.mjs',
+        './frontend/tailwind.config.ts',
+        './frontend/tsconfig.json',
+        './frontend/postcss.config.mjs',
+        './frontend/components.json'
+    ],
+    # Live update for faster development
+    live_update=[
+        # Restart when package.json changes
+        fall_back_on(['./frontend/package.json']),
+        
+        # Sync source code changes
+        sync('./frontend/app/', '/app/app/'),
+        sync('./frontend/components/', '/app/components/'),
+        sync('./frontend/lib/', '/app/lib/'),
+        sync('./frontend/types/', '/app/types/'),
+        sync('./frontend/public/', '/app/public/'),
+        sync('./frontend/styles/', '/app/styles/'),
+        sync('./frontend/next.config.mjs', '/app/next.config.mjs'),
+        sync('./frontend/tailwind.config.ts', '/app/tailwind.config.ts'),
+        sync('./frontend/tsconfig.json', '/app/tsconfig.json'),
+        sync('./frontend/postcss.config.mjs', '/app/postcss.config.mjs'),
+        sync('./frontend/components.json', '/app/components.json'),
+    ]
+)
+
+# Override the docker-compose frontend service to use our dev image
+k8s_image_json_path_json('canopy-frontend', '{.spec.template.spec.containers[0].image}', FRONTEND_IMAGE_NAME)
+
+# =============================================================================
+# Service Configuration and Port Forwarding  
+# =============================================================================
+
+# Frontend service with port forwarding
+dc_resource('canopy-frontend', 
+    port_forwards=['3000:3000'],
+    labels=['frontend']
+)
+
+# Monitoring services
+dc_resource('grafana',
+    port_forwards=['3001:3000'],  # Use port 3001 to avoid conflict with frontend
+    labels=['monitoring']
+)
+
+dc_resource('prometheus',
+    port_forwards=['9090:9090'],
+    labels=['monitoring']
+)
+
+dc_resource('loki',
+    port_forwards=['3100:3100'],
+    labels=['monitoring']
+)
+
+dc_resource('traefik',
+    port_forwards=['80:80', '443:443', '8082:8082'],
+    labels=['loadbalancer']
+)
+
+# Canopy nodes
+dc_resource('node1',
+    port_forwards=['9001:9001'],
+    labels=['canopy-nodes']
+)
+
+dc_resource('node2',
+    port_forwards=['9002:9002'],
+    labels=['canopy-nodes']
+)
+
+# Exporters
+dc_resource('blackbox',
+    labels=['exporters']
+)
+
+dc_resource('cadvisor',
+    port_forwards=['8080:8080'],
+    labels=['exporters']
+)
+
+dc_resource('node-exporter',
+    port_forwards=['9100:9100'],
+    labels=['exporters']
+)
+
+# =============================================================================
+# Local Development Resources
+# =============================================================================
+
+# Frontend npm install
+local_resource(
+    'frontend-install',
+    cmd='cd frontend && npm install',
+    deps=['frontend/package.json', 'frontend/package-lock.json'],
+    labels=['setup']
+)
+
+# Frontend linting (optional)
+local_resource(
+    'frontend-lint',
+    cmd='cd frontend && npm run lint',
+    deps=[
+        'frontend/app/',
+        'frontend/components/',
+        'frontend/lib/',
+        'frontend/types/',
+    ],
+    auto_init=False,
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    labels=['dev-tools']
+)
+
+# =============================================================================
+# Service Dependencies
+# =============================================================================
+
+# Set resource dependencies
+resource_deps = {
+    'canopy-frontend': ['prometheus', 'grafana', 'loki'],
+    'grafana': ['prometheus', 'loki'],
+    'prometheus': ['node-exporter', 'cadvisor', 'blackbox']
+}
+
+for resource, deps in resource_deps.items():
+    for dep in deps:
+        if dep in [r.name for r in config.resources]:
+            dc_resource(resource, resource_deps=deps)
+
+# =============================================================================
+# Configuration and Display
+# =============================================================================
+
+# Display startup message
+print("""
+🚀 Canopy Monitoring Stack Development Environment
+
+Services Available:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 Frontend & Load Balancer:
+   • Frontend:           http://localhost:3000
+   • Traefik Dashboard:  http://localhost:8082
+   • Load Balancer:      http://localhost:80
+
+📊 Monitoring & Observability:
+   • Grafana:            http://localhost:3001
+   • Prometheus:         http://localhost:9090
+   • Loki:               http://localhost:3100
+
+🔗 Canopy Blockchain Nodes:
+   • Node 1 P2P:         localhost:9001
+   • Node 2 P2P:         localhost:9002
+
+📈 Metrics Exporters:
+   • cAdvisor:           http://localhost:8080
+   • Node Exporter:      http://localhost:9100
+   
+🌍 Local Services (via Traefik):
+   • Frontend:           http://frontend.localhost
+   • Monitoring:         http://monitoring.localhost
+   • Node 1 Wallet:      http://wallet.node1.localhost
+   • Node 1 Explorer:    http://explorer.node1.localhost
+   • Node 2 Wallet:      http://wallet.node2.localhost
+   • Node 2 Explorer:    http://explorer.node2.localhost
+
+🛠 Development Tools:
+   • Tilt UI:            http://localhost:10350
+
+Commands:
+   • tilt up        : Start complete development environment
+   • tilt down      : Stop all services  
+   • tilt logs      : View logs from all services
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+""")

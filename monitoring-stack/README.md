@@ -1,7 +1,9 @@
 # Canopy monitoring stack overview
 
 
-This  docker-compose.yaml contains the following software stack for production grade and monitoring purposes; prometheus, grafana for monitoring and cadvisor and node-exporter for container and server metrics respectively and traefik for loadbalancing purposes
+This docker-compose.yaml contains the following software stack for production grade and monitoring purposes; prometheus, grafana for monitoring and cadvisor and node-exporter for container and server metrics respectively and traefik for loadbalancing purposes.
+
+**New**: The stack now includes a **Canopy Frontend** application that provides a modern web interface for interacting with the Canopy blockchain network, including wallet functionality, explorer views, AMM interface, and more.
 
 We added a [.env](./.env) which is the file we use to parametrice all configurations in order to setup your personal canopy monitoring stack. It is intented to run by default for local testing but can be easily modified via .env variable to be configured for more robust staging/production purposes
 
@@ -122,6 +124,11 @@ sudo make start_with_snapshot
 
 This stack runs the following local and production services:
 
+**Frontend Application:**
+- http://frontend.localhost/
+	Modern web interface for Canopy blockchain
+
+**Node Services:**
 - http://wallet.node1.localhost/
 	user: canopy, pass:canopy (production usage)
 - http://explorer.node1.localhost/
@@ -134,9 +141,7 @@ This stack runs the following local and production services:
 - http://rpc.node1.localhost/
 - http://adminrpc.node1.localhost/
 
-
-Grafana monitorign service 
-
+**Monitoring Services:**
 - http://monitoring.localhost/
 	user: admin, pass: canopy
 
@@ -416,3 +421,87 @@ We use loki for logs which takes all the stdout from the containers and sends it
 
 
 For ex.: to access loki logs on node1 after you executed the docker-compose up command you should see it [here](http://localhost:3000/explore?schemaVersion=1&panes=%7B%225v4%22:%7B%22datasource%22:%22beh1gkva12hvkd%22,%22queries%22:%5B%7B%22refId%22:%22A%22,%22expr%22:%22%7Bcompose_service%3D%5C%22node2%5C%22%7D%20%7C%3D%20%60%60%22,%22queryType%22:%22range%22,%22datasource%22:%7B%22type%22:%22loki%22,%22uid%22:%22beh1gkva12hvkd%22%7D,%22editorMode%22:%22builder%22,%22direction%22:%22backward%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D%7D&orgId=1)
+
+## Canopy Frontend
+
+The monitoring stack now includes the Canopy Frontend application, a modern Next.js web interface that provides:
+
+### Features
+
+- **Dashboard**: Overview of your blockchain operations
+- **Wallet Interface**: Connect and manage your Canopy wallets  
+- **Explorer**: Browse blocks, transactions, and network activity
+- **AMM (Automated Market Maker)**: Swap tokens and provide liquidity
+- **Orderbook**: Advanced trading interface
+- **Staking**: Participate in network validation
+- **Chain Management**: Create and manage custom chains
+- **Settings**: Configure your preferences
+
+### Frontend Development
+
+The frontend is integrated as a git submodule from [canopy-frontend](https://github.com/nodefleet/canopy-frontend).
+
+#### Quick Start
+
+```bash
+# Start the entire stack including frontend
+make up-with-frontend
+
+# Start frontend development server with hot reload  
+make frontend-dev
+
+# View frontend logs
+make frontend-logs
+
+# Restart just the frontend
+make frontend-restart
+```
+
+#### Development with Tilt
+
+For the best development experience with hot reloading:
+
+```bash
+# Start Tilt development environment
+tilt up
+
+# Access services:
+# - Frontend: http://localhost:3000
+# - Grafana: http://localhost:3001  
+# - Tilt UI: http://localhost:10350
+```
+
+#### Frontend-Specific Commands
+
+```bash
+# Frontend dependency management
+make frontend-install
+
+# Build frontend for production
+make frontend-build
+
+# Build frontend Docker image
+make frontend-docker-build
+
+# Run frontend in Docker
+make frontend-docker-run
+
+# Deploy to Kubernetes
+make frontend-k8s-local     # Local deployment
+make frontend-k8s-staging   # Staging deployment
+
+# Tilt development
+make frontend-tilt-up       # Start Tilt for frontend only
+make frontend-tilt-down     # Stop Tilt
+```
+
+#### Access Points
+
+**Local Development:**
+- Frontend (direct): http://localhost:3000
+- Frontend (via Traefik): http://frontend.localhost
+
+**Production:**
+- Frontend: https://frontend.yourdomain.com
+
+The frontend connects to your local Canopy nodes and monitoring services automatically.

@@ -178,6 +178,18 @@ http:
       tls:
         certResolver: https-resolver
 
+    canopy-frontend:
+      rule: Host(`frontend.{{ env "DOMAIN" }}`)
+      service: canopy-frontend
+      priority: 1
+      entryPoints:
+        - web
+        - websecure
+      middlewares:
+        - https-redirect
+      tls:
+        certResolver: https-resolver
+
   services:
     canopy-wallet:
       loadBalancer:
@@ -244,3 +256,9 @@ http:
         passHostHeader: true
         servers:
           - url: http://grafana:3000/
+    
+    canopy-frontend:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: http://canopy-frontend:3000

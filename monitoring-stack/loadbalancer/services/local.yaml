@@ -54,6 +54,12 @@ http:
       priority: 1
       entryPoints:
       - web
+    canopy-frontend-local:
+      rule: Host(`frontend.localhost`)
+      service: canopy-frontend-local
+      priority: 1
+      entryPoints:
+      - web
   services:
     canopy-wallet-local:
       loadBalancer:
@@ -100,3 +106,8 @@ http:
         passHostHeader:  true
         servers:
           - url: http://grafana:3000
+    canopy-frontend-local:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: http://canopy-frontend:3000

@@ -18,6 +18,10 @@ restart_with_latest:
 	make up
 logs:
 	docker compose logs -f node1 node2
+frontend-logs:
+	docker compose logs -f canopy-frontend
+all-logs:
+	docker compose logs -f
 reset:
 	docker compose stop node1 node2
 
@@ -93,3 +97,39 @@ start_with_snapshot:
 
 	echo "Restarting node2 and whole stack"
 	docker compose up -d
+
+# Frontend specific commands
+frontend-build:
+	cd frontend && make build
+frontend-dev:
+	cd frontend && make dev
+frontend-install:
+	cd frontend && make install
+frontend-docker-build:
+	cd frontend && make docker-build
+frontend-docker-run:
+	cd frontend && make docker-run
+frontend-compose-up:
+	docker compose up canopy-frontend -d
+frontend-compose-down:
+	docker compose stop canopy-frontend
+frontend-restart:
+	docker compose restart canopy-frontend
+frontend-k8s-local:
+	cd frontend && make k8s-local
+frontend-k8s-staging:
+	cd frontend && make k8s-staging
+frontend-tilt-up:
+	cd frontend && make tilt-up
+frontend-tilt-down:
+	cd frontend && make tilt-down
+
+# Stack management with frontend
+up-with-frontend:
+	docker compose up -d
+down-all:
+	docker compose down
+restart-all:
+	docker compose restart
+build-all:
+	docker compose build
