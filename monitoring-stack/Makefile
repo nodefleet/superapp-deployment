@@ -124,6 +124,36 @@ frontend-tilt-up:
 frontend-tilt-down:
 	cd frontend && make tilt-down
 
+# Submodule management
+frontend-update:
+	@echo "Updating frontend submodule to latest version..."
+	git submodule update --remote --merge frontend
+	@echo "Frontend submodule updated successfully!"
+	@echo "Current commit: $$(cd frontend && git rev-parse --short HEAD)"
+	@echo "Branch: $$(cd frontend && git branch --show-current)"
+
+submodule-init:
+	@echo "Initializing and updating all submodules..."
+	git submodule update --init --recursive
+	@echo "All submodules initialized!"
+
+frontend-reset:
+	@echo "Resetting frontend submodule to remote HEAD..."
+	@read -p "This will discard any local changes in the frontend submodule. Continue? (y/N): " confirm; \
+	if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
+		cd frontend && git fetch origin && git reset --hard origin/main; \
+		echo "Frontend submodule reset to remote HEAD"; \
+	else \
+		echo "Reset cancelled"; \
+	fi
+
+frontend-status:
+	@echo "Frontend submodule status:"
+	@git submodule status frontend
+	@echo ""
+	@echo "Frontend submodule branch and commit:"
+	@cd frontend && echo "Branch: $$(git branch --show-current)" && echo "Commit: $$(git log -1 --oneline)"
+
 # Stack management with frontend
 up-with-frontend:
 	docker compose up -d
